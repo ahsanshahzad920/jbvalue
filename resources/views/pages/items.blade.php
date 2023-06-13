@@ -44,6 +44,9 @@
                             <h5>{{ __('Update Value') }}</h5>
                         </div>
                         <div class="card-body">
+                            @if (session()->has('success'))
+                                <div class="alert alert-success">{{ session()->get('success') }}</div>
+                            @endif
                             <form method="post" action="{{ route('item.value.update', $item->id) }}">
                                 @csrf
                                 <input type="number" name="value" class="form-control"
