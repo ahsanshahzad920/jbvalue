@@ -30,10 +30,13 @@ class ItemsController extends Controller
     {
         $val = $item->value();
         
-        if ((($request->value - $val)/$val) < 0.35) {
+        if ($val == 0) {
             $item->valueHistory()->create(['value' => $request->value]);
             return redirect()->back();
-        }
+        } else if ((($request->value - $val) / $val) < 0.35) {
+            $item->valueHistory()->create(['value' => $request->value]);
+            return redirect()->back();
+        }
 
         return redirect()->back()->withInput($request->all())
             ->withErrors(['value' => 'Value is greater than 35% threshold']);
